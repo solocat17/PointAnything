@@ -1,9 +1,17 @@
 # bash scripts/build_env/PointAnything.sh
+
+source activate base
+
+CONDA_BASE=$(conda info --base)
+source $CONDA_BASE/etc/profile.d/conda.sh
+conda init bash
+
 git clone https://github.com/kennymckormick/pyskl.git
 git clone https://github.com/LiheYoung/Depth-Anything.git
 git clone https://github.com/THU-MIG/yolov10.git
 
 # create folder for input, output, intermediate data and models
+mkdir -p data/input
 mkdir -p data/output
 mkdir -p data/intermediate/images
 mkdir -p data/intermediate/products/skeleton
