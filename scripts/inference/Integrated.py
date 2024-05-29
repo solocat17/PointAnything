@@ -142,7 +142,7 @@ def get_bounding_boxes(img, depth, thres=5):
     return possible_bounding_boxes
 
 def detect_object_with_point(img, inference_point, img_name_without_ext, possible_bounding_boxes, num_arm, wrist_pos, classes):
-    os.makedirs(f'../../data/output/{img_name_without_ext}/images', exist_ok=True)
+    os.makedirs(f'../../data/output/{img_name_without_ext}', exist_ok=True)
     # L is the line passing through the wrist position and the target point
     # sort the bounding boxes by the distance(inference, L), the smaller the distance, the more likely the bounding box contains the object
     possible_bounding_boxes = sorted(possible_bounding_boxes, key=lambda x: distance_point_to_line(inference_point, wrist_pos, [x[4], x[5]]))
@@ -156,7 +156,7 @@ def detect_object_with_point(img, inference_point, img_name_without_ext, possibl
     img_cp = cv2.rectangle(img_cp, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 10)
     img_cp = cv2.rectangle(img_cp, (int(max(x1 - 5, 0)), int(min(y1 + 5, img.shape[1]))), (int(min(x1 + 250, img.shape[0])), int(max(y1 - 25, 0))), (0, 255, 0), -1)
     img_cp = cv2.putText(img_cp, item_class, (int(x1), int(y1)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-    cv2.imwrite(f'../../data/output/{img_name_without_ext}/images/detected_arm{num_arm}.png', img_cp)
+    cv2.imwrite(f'../../data/output/{img_name_without_ext}/detected_arm{num_arm}.png', img_cp)
     return item_class
 
 if __name__ == '__main__':
