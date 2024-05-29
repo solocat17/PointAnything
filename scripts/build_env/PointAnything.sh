@@ -1,5 +1,5 @@
 # bash scripts/build_env/PointAnything.sh
-
+# execute the command above in the root directory of the repository (PointAnything/)
 source activate base
 
 CONDA_BASE=$(conda info --base)
@@ -13,9 +13,9 @@ git clone https://github.com/THU-MIG/yolov10.git
 # create folder for input, output, intermediate data and models
 mkdir -p data/input
 mkdir -p data/output
-mkdir -p data/intermediate/images
-mkdir -p data/intermediate/products/skeleton
-mkdir -p data/intermediate/products/depth
+mkdir -p data/intermediate/arm_vectors
+mkdir -p data/intermediate/depth_map
+mkdir -p data/intermediate/Integrator
 mkdir -p models
 
 # pyskl
@@ -31,14 +31,14 @@ cp skeleton.py ../../pyskl/demo/
 conda deactivate
 
 # Depth-Anything
-cd ../Depth-Anything
+cd ../../Depth-Anything
 conda create -n depth-anything python=3.9
 conda activate depth-anything
 pip install -r requirements.txt
 conda deactivate
 
 # YOLOv10
-cd yolov10
+cd ../yolov10
 conda create -n yolov10 python=3.9
 conda activate yolov10
 pip install -r requirements.txt

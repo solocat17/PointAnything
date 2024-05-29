@@ -40,7 +40,6 @@ def get_arm_depth_vec(depth, arm_vector):
     normalized_arm_dir = arm_dir / np.linalg.norm(arm_dir)
     return arm_vector, depth_elbow, depth_wrist, depth_dir, normalized_arm_dir
 
-# get the first point where the depth changes in the direction of the arm vector greater than the threshold
 def get_inference_point(img, img_name_without_ext, ith_arm, depth, arm_vector, thres=25):
     
     arm_vector, depth_elbow, depth_wrist, depth_dir, normalized_arm_dir = get_arm_depth_vec(depth, arm_vector)
@@ -90,13 +89,14 @@ def if_in_box(x, y, x1, y1, x2, y2):
     return x >= x1 and x <= x2 and y >= y1 and y <= y2
 
 def find_important_point(depth, x1, y1, x2, y2, thres=5):
-    # most important point is the weighted average of the 4 bounders of the bounding box with the depth as the weight within the bounding box
     x1 = int(x1)
     y1 = int(y1)
     x2 = int(x2)
     y2 = int(y2)
     
     # find the most appearing depth value in the bounding box
+    # more robust but slower if taking threshold into account
+    # further experiments needed
     '''
     thres //= 2
     points = list(itertools.product(range(x1, x2+1), range(y1, y2+1), range(-thres, thres+1)))
@@ -121,7 +121,6 @@ def find_important_point(depth, x1, y1, x2, y2, thres=5):
     max_freq = max(freq.values())
     freq_depth = [k for k, v in freq.items() if v == max_freq][0]
 
-    # find the average point with the most appearing depth value
     points = list(itertools.product(range(x1, x2+1), range(y1, y2+1)))
     points = [(i, j) for i, j in points if depth[j, i] == freq_depth]
     xavg = sum([i for i, j in points]) // len(points)
@@ -133,7 +132,6 @@ def distance_point_to_line(p, l1, l2):
     return np.linalg.norm(np.cross(np.array([l2[0] - l1[0], l2[1] - l1[1]]), np.array([p[0] - l1[0], p[1] - l1[1]])) / np.linalg.norm(np.array([l2[0] - l1[0], l2[1] - l1[1]])))
 
 def get_bounding_boxes(img, depth, thres=5):
-    # get all bounding boxes with the object detected in the img
     model = YOLOv10('../../models/yolov10s.pt')
     results = model(img, conf=0.25)[0]
     possible_bounding_boxes = []
@@ -143,7 +141,7 @@ def get_bounding_boxes(img, depth, thres=5):
         possible_bounding_boxes.append([x1, y1, x2, y2, targetx, targety, result.boxes.conf.cpu().numpy(), result.boxes.cls.cpu().numpy()])
     return possible_bounding_boxes
 
-def detect_object_with_point(img, inference_point, img_name_without_ext, possible_bounding_boxes, wrist_pos, classes):
+def detect_object_with_point(img, inference_point, img_name_without_ext, possible_bounding_boxes, num_arm, wrist_pos, classes):
     os.makedirs(f'../../data/output/{img_name_without_ext}/images', exist_ok=True)
     # L is the line passing through the wrist position and the target point
     # sort the bounding boxes by the distance(inference, L), the smaller the distance, the more likely the bounding box contains the object
@@ -154,13 +152,11 @@ def detect_object_with_point(img, inference_point, img_name_without_ext, possibl
     item_class = item_class + f': {conf[0]:.2f}'
 
     img_cp = img.copy()
-    # img_cp = cv2.circle(img_cp, (targetx, targety), 5, (255, 0, 0), -1)
     img_cp = cv2.circle(img_cp, (int(inference_point[0]), int(inference_point[1])), 10, (255, 0, 0), -1)
     img_cp = cv2.rectangle(img_cp, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 10)
-    # add background for the text
     img_cp = cv2.rectangle(img_cp, (int(max(x1 - 5, 0)), int(min(y1 + 5, img.shape[1]))), (int(min(x1 + 250, img.shape[0])), int(max(y1 - 25, 0))), (0, 255, 0), -1)
     img_cp = cv2.putText(img_cp, item_class, (int(x1), int(y1)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-    cv2.imwrite(f'../../data/output/{img_name_without_ext}/images/object({inference_point}).png', img_cp)
+    cv2.imwrite(f'../../data/output/{img_name_without_ext}/images/detected_arm{num_arm}.png', img_cp)
     return item_class
 
 if __name__ == '__main__':
@@ -196,7 +192,7 @@ if __name__ == '__main__':
         print('No object detected')
         exit(0)
     
-    result1 = detect_object_with_point(img, inference_point_1, img_name_without_ext, possible_bounding_boxes, arm_vector1[1], classes)
-    result2 = detect_object_with_point(img, inference_point_2, img_name_without_ext, possible_bounding_boxes, arm_vector2[1], classes)
+    result1 = detect_object_with_point(img, inference_point_1, img_name_without_ext, possible_bounding_boxes, 1, arm_vector1[1], classes)
+    result2 = detect_object_with_point(img, inference_point_2, img_name_without_ext, possible_bounding_boxes, 2, arm_vector2[1], classes)
     print(f'Arm 1: {result1}')
     print(f'Arm 2: {result2}')
