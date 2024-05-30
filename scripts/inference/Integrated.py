@@ -146,7 +146,10 @@ def detect_object_with_point(img, inference_point, img_name_without_ext, possibl
     # L is the line passing through the wrist position and the target point
     # sort the bounding boxes by the distance(inference, L), the smaller the distance, the more likely the bounding box contains the object
     possible_bounding_boxes = sorted(possible_bounding_boxes, key=lambda x: distance_point_to_line(inference_point, wrist_pos, [x[4], x[5]]))
-    x1, y1, x2, y2, targetx, targety, conf, cls = possible_bounding_boxes[0]
+    for i, (x1, y1, x2, y2, targetx, targety, conf, cls) in enumerate(possible_bounding_boxes):
+        if if_in_box(inference_point[0], inference_point[1], x1, y1, x2, y2):
+            x1, y1, x2, y2, targetx, targety, conf, cls = possible_bounding_boxes[i]
+            break
     
     item_class = classes[int(cls)]
     item_class = item_class + f': {conf[0]:.2f}'
@@ -158,6 +161,14 @@ def detect_object_with_point(img, inference_point, img_name_without_ext, possibl
     img_cp = cv2.putText(img_cp, item_class, (int(x1), int(y1)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
     cv2.imwrite(f'../../data/output/{img_name_without_ext}/detected_arm{num_arm}.png', img_cp)
     return item_class
+
+def draw_bounding_box(img, possible_bounding_boxes, classes):
+    img_cp = img.copy()
+    for x1, y1, x2, y2, targetx, targety, conf, cls in possible_bounding_boxes:
+        img_cp = cv2.rectangle(img_cp, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 10)
+        img_cp = cv2.rectangle(img_cp, (int(max(x1 - 5, 0)), int(min(y1 + 5, img.shape[1]))), (int(min(x1 + 250, img.shape[0])), int(max(y1 - 25, 0))), (0, 255, 0), -1)
+        img_cp = cv2.putText(img_cp, classes[int(cls)], (int(x1), int(y1)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    cv2.imwrite(f'../../data/intermediate/Integrator/{img_name_without_ext}/images/bounding_boxes.png', img_cp)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -192,6 +203,8 @@ if __name__ == '__main__':
         print('No object detected')
         exit(0)
     
+    draw_bounding_box(img, possible_bounding_boxes, classes)
+
     result1 = detect_object_with_point(img, inference_point_1, img_name_without_ext, possible_bounding_boxes, 1, arm_vector1[1], classes)
     result2 = detect_object_with_point(img, inference_point_2, img_name_without_ext, possible_bounding_boxes, 2, arm_vector2[1], classes)
     print(f'Arm 1: {result1}')
