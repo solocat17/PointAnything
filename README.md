@@ -19,11 +19,12 @@ The script above will automatically create 3 environments and download 3 pre-tra
 
 ```bash
 # Under the directory of PointAnything/scripts/inference/
-bash Integrated.sh <input_image_in_input_folder> <number_of_usable_GPUs>
+bash Integrated.sh <input_image_in_input_folder> <index_of_usable_GPUs>
 ```
 
 The script above takes seconds to minutes to estimate the object being pointed in the image.
-
+## Adaptive Approach
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1RHdYxRKBmngfjl5O7syqcQq3rQ7Pxc_L?usp=sharing) 
 ## Acknowledgement
 
 We sincerely thank [PYSKL](https://github.com/kennymckormick/pyskl), [Depth Anything](https://github.com/LiheYoung/Depth-Anything), [YOLOv10](https://github.com/THU-MIG/yolov10), and others for providing their wonderful code to the community!
