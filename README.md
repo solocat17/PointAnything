@@ -26,6 +26,7 @@ The script above takes seconds to minutes to estimate the object being pointed i
 The result will be saved at PoinyAnything/data/output/<image_name>
 ## Adaptive Approach Ver 1
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1RHdYxRKBmngfjl5O7syqcQq3rQ7Pxc_L?usp=sharing) 
+You can modified the path of image in Run multi section step 2.
 ## Adaptive Approach Ver 2 and Ver 3
 ```bash
 # Under the root directory of PointAnything/
