@@ -1,6 +1,7 @@
 # PointAnything: Pointing Estimation from single RGB image
 
 2024 Spring NYCU AI Final Project
+
 2024 NYCU AI Workshop Best Project Award
 
 ## Usage
