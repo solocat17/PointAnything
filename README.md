@@ -28,7 +28,7 @@ The script above will automatically create 3 environments and download 3 pre-tra
 
 ```bash
 # Under the directory of PointAnything/scripts/inference/
-bash Integrated.sh <input_image_in_input_folder> <index_of_usable_GPUs>
+bash Integrated.sh <input_image_in_input_folder> <indices_of_usable_GPUs>
 ```
 
 The script above takes seconds to minutes to estimate the object being pointed in the image.
