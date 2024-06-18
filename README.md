@@ -50,4 +50,3 @@ The result will be saved at PoinyAnything/data/output/<image_name>
 
 We sincerely thank [PYSKL](https://github.com/kennymckormick/pyskl), [Depth Anything](https://github.com/LiheYoung/Depth-Anything), [YOLOv10](https://github.com/THU-MIG/yolov10), and others for providing their wonderful code to the community!
 
-*This project is still under construction*
