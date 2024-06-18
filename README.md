@@ -9,8 +9,6 @@
 
 </div>
 
-2024 NYCU AI Workshop Best Project Award
-
 ## Usage
 
 ### Build environments
