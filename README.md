@@ -1,6 +1,13 @@
-# PointAnything: Pointing Estimation from single RGB image
+<div align="center">
+<h2>PointAnything: Pointing Estimation from single RGB image</h2>
 
-2024 Spring NYCU AI Final Project
+[李宗諺](https://github.com/solocat17)<sup>*</sup> [黃仁駿](https://github.com/c98181)<sup>*</sup> [劉冠言](https://github.com/star-platinum127)<sup>*</sup> [游惠晴](https://github.com/hcyu0101)<sup>*</sup> 
+
+<sup>*</sup> Equally contributed
+
+**NYCU AI workshop spring 2024 Best Project (among 60+ competitors)**
+
+</div>
 
 ## Usage
 
