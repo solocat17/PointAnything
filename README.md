@@ -5,7 +5,7 @@
 
 <sup>\*</sup> Equally contributed
 
-** NYCU AI workshop spring 2024 Best Project Award (among 60+ competitors) **
+**NYCU AI workshop spring 2024 Best Project Award (among 60+ competitors)**
 
 <img src="assets/teaser.jpg" title="teaser">
 
