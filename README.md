@@ -7,6 +7,8 @@
 
 **NYCU AI workshop spring 2024 Best Project (among 60+ competitors)**
 
+<img src="assets/teaser.jpg" title="teaser">
+
 </div>
 
 ## Usage
