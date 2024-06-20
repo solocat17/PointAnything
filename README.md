@@ -15,7 +15,7 @@
 
 <img src="assets/pipeline_overview.jpg" title="pipeline">
 
-In this project, we developed an innovative zero-shot pointing estimation system capable of identifying the object being pointed to within an image. The system is composed of three components: pointing estimation, depth estimation, and object detection. For each component, we used pre-trained models to estimate the corresponding information. We integrated these three components into a single pipeline to estimate the object being pointed in the image. Eventually, our system achieved an accuracy of approximately 25%. The system holds significant potential for a range of applications, including enhancing human-computer interaction.
+In this project, we developed a zero-shot pointing estimation system capable of identifying the object being pointed to within an image. The system is composed of three components: pointing estimation, depth estimation, and object detection. For each component, we used pre-trained models to estimate the corresponding information. We integrated these three components into a single pipeline to estimate the object being pointed in the image. Eventually, our system achieved an accuracy of approximately 25%. The system holds significant potential for a range of applications, including enhancing human-computer interaction.
 
 ## Usage
 
@@ -67,4 +67,4 @@ The result will be saved at PointAnything/data/output/<image_name>
 
 ## Acknowledgement
 
-We sincerely thank [PYSKL](https://github.com/kennymckormick/pyskl), [Depth Anything](https://github.com/LiheYoung/Depth-Anything), [YOLOv10](https://github.com/THU-MIG/yolov10), [SAM](https://github.com/facebookresearch/segment-anything), [Detectron2](https://github.com/facebookresearch/detectron20), and others for providing their wonderful code to the community!
+We sincerely thank [PYSKL](https://github.com/kennymckormick/pyskl), [Depth Anything](https://github.com/LiheYoung/Depth-Anything), [YOLOv10](https://github.com/THU-MIG/yolov10), [SAM](https://github.com/facebookresearch/segment-anything), [Detectron2](https://github.com/facebookresearch/detectron2), and others for providing their wonderful code to the community!
