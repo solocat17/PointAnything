@@ -6,6 +6,7 @@
 <sup>\*</sup>Equally contributed
 
 **NYCU AI workshop spring 2024 Best Project Award (among 60+ competitors)**
+
 [Presentation Record Link](https://youtu.be/6Y-3q6fSCmE?si=OojcVHpC_Ku5Uzs2)
 <img src="assets/teaser.jpg" title="teaser">
 
